@@ -35,11 +35,11 @@
                 var code = localStorage.getItem('quizletCode');
                 
                 if (code) {
-                    consle.log("Link hợp lệ! Mã số: " + code);
+                    console.log("Link hợp lệ! Mã số: " + code);
                     var iframe = document.getElementById("quizletIframe");
                     iframe.src = "https://quizlet.com/" + code + "/learn/embed?i=3ha6lf&x=1jj1";
                 } else {
-                    consle.log("Mã số không hợp lệ hoặc không được tìm thấy.");
+                    console.log("Mã số không hợp lệ hoặc không được tìm thấy.");
                 }
             };
 
