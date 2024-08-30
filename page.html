@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="page.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,600,0,0" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css">
+    </header>
+    <body>
+        <nav class="navbar">
+            <a href="index.html"><span style="font-size: 35px; color: rgb(49, 38, 20);" class="material-symbols-outlined">home </span></a>
+            <div class="search">
+                <input id="quizletLink" type="text" placeholder="Nhập link học phần...">
+                <div class="icon" onclick="updateIframe()"><span class="material-symbols-outlined">search</span></div>
+            </div>
+        </nav>
+        <div class="iframe-container">
+            <iframe id="quizletIframe" src="https://quizlet.com/8140863/learn/embed?i=3ha6lf&x=1jj1" height="100%" width="70%" style="border:0"></iframe>
+        </div>
+        <div class="notifications"></div>
+        <script>
+                let notifications = document.querySelector('.notifications');
+                let type = 'error';
+                let icon = 'fa-solid fa-circle-exclamation';
+                let title = 'Lỗi';
+                let text = 'Link không đúng định dạng';
+
+                window.onload = function() {
+                var code = localStorage.getItem('quizletCode');
+                
+                if (code) {
+                    consle.log("Link hợp lệ! Mã số: " + code);
+                    var iframe = document.getElementById("quizletIframe");
+                    iframe.src = "https://quizlet.com/" + code + "/learn/embed?i=3ha6lf&x=1jj1";
+                } else {
+                    consle.log("Mã số không hợp lệ hoặc không được tìm thấy.");
+                }
+            };
+
+            function updateIframe() {
+                var input = document.getElementById("quizletLink").value;
+                if (!input.startsWith("https://")) {
+                    input = "https://" + input;
+                }
+                var regex = /https:\/\/quizlet\.com\/vn\/(\d+)\//;
+                var match = input.match(regex);
+
+                if (match && match[1]) {
+                    var newCode = match[1];
+                    var iframe = document.getElementById("quizletIframe");
+
+                    iframe.src = "https://quizlet.com/" + newCode + "/learn/embed?i=3ha6lf&x=1jj1";
+                } else {
+                    createToast(type, icon, title, text);
+                }
+            }
+            
+            document.getElementById("quizletLink").addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    updateIframe();
+                }
+            });
+
+            function createToast(type, icon, title, text){
+                let newToast = document.createElement('div');
+                newToast.innerHTML = `
+                    <div class="toast ${type}">
+                        <div class="content" style="width: 100%;">
+                            <div class="title">${title}</div>
+                            <span style="width: 100%;">${text}</span>
+                        </div>
+                    </div>`;
+                notifications.appendChild(newToast);
+                newToast.timeOut = setTimeout(
+                    ()=>newToast.remove(), 5000
+                )
+            } 
+        </script>
+    </body>
+</html>

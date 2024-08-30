@@ -1,0 +1,271 @@
+:root {
+    --gradient_top: linear-gradient(to top left,#d7fff0, #87DFDC,#d7fff0 );
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html, body {
+    background: var(--gradient_top);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Playpen Sans", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.navbar {
+    width: 100%;
+    color: white;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 5px 20px;
+    
+}
+
+a {
+    font-size: 16px;
+    text-decoration: none; 
+    color: inherit
+}
+
+.search {
+    width: 90%;
+    height: 100%;
+    max-width: 800px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 10px 20px;
+}
+
+input {
+    border: none;
+    border-radius: 30px;
+    height: 50px; 
+    width: 100%; /* Để input chiếm toàn bộ chiều rộng của phần chứa */
+    max-width: 600px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: rgb(47, 37, 21);
+    outline: none; 
+    background-color: white; 
+}
+
+.icon {
+    cursor: pointer;
+    width: 40px; 
+    background-color: rgba(167, 255, 237, 0.71);
+    color: rgba(49, 49, 49, 0.69);
+    border-radius: 50%; 
+    height: 40px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.icon:hover {
+    background-color: rgba(234, 255, 255, 0.856);
+    width: 42px; 
+    height: 42px;
+}
+
+.iframe-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 88%;
+    width: 100%;
+    padding: 20px;
+}
+
+iframe {
+    border-radius: 20px;
+    width: 80%;
+    height: 100%;
+}
+
+
+.notifications {
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    width: 90%;
+    max-width: 350px; /* Điều chỉnh kích thước tối đa cho màn hình lớn */
+}
+
+.toast {
+    position: relative;
+    padding: 10px 20px;
+    color: #000000;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    --color: #0abf30;
+    background-image: linear-gradient(to right, #0abf3055, #22242f 30%);
+    animation: slideIn 0.3s ease 1 forwards, slideOut 0.5s ease 1 4.5s forwards;
+}
+
+.toast .title {
+    font-size: large;
+    font-weight: bold;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+    }
+    40% {
+        transform: translateX(-5%);
+    }
+    80% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-10%);
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateX(-10%);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    80% {
+        transform: translateX(-5%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.toast::before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color);
+    width: 100%;
+    height: 3px;
+    content: '';
+    box-shadow: 0 0 10px var(--color);
+    animation: timeOut 5s linear 1 forwards;
+}
+
+@keyframes timeOut {
+    to {
+        width: 0;
+    }
+}
+
+.toast.error {
+    --color: #f24d4c;
+    background-image: linear-gradient(to right, #ff3b3b95, rgba(255, 255, 255, 0.481) 30%);
+}
+
+/* Media queries for different screen sizes */
+@media (max-width: 768px) {
+    input {
+        width: calc(100% - 60px);
+        height: 20px;
+        font-size: 2vw;
+    }
+    
+    .icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .toast {
+        width: 90%;
+    }
+}
+
+/* Media queries for different screen sizes */
+@media (max-width: 768px) {
+    .search {
+        width: 95%;
+        padding: 10px;
+    }
+
+    input {
+        height: 45px; 
+        font-size: 14px;
+    }
+
+    .icon {
+        width: 36px; 
+        height: 36px;
+    }
+
+    .iframe-container {
+        padding: 10px;
+    }
+    iframe {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .search {
+        width: 100%;
+        padding: 10px;
+    }
+
+    input {
+        height: 40px; 
+        font-size: 12px;
+    }
+
+    .icon {
+        width: 32px; 
+        height: 32px;
+    }
+    .iframe-container {
+        height: calc(100% - 70px);
+    }
+    iframe {
+        width: 100%;
+    }
+   
+    @keyframes slideIn {
+        0% {
+            transform: translateX(100%);
+        }
+        40% {
+            transform: translateX(5%);
+        }
+        80% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(10%);
+        }
+    }
+    
+    @keyframes slideOut {
+        0% {
+            transform: translateX(10%);
+        }
+        40% {
+            transform: translateX(0%);
+        }
+        80% {
+            transform: translateX(5%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+}
